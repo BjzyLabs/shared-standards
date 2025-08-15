@@ -1,0 +1,58 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened]
+    # CUSTOMIZE THESE PATHS FOR YOUR PROJECT:
+    paths:
+      - "backend-api/**/*.py"      # Python backend
+      - "frontend-web/**/*.js"     # JavaScript frontend  
+      - "frontend-web/**/*.jsx"    # React components
+      - "*.py"                     # Root Python files
+      - "*.js"                     # Root JS files
+      - "*.jsx"                    # Root JSX files
+  pull_request_review_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+  issue_comment:
+    types: [created]
+
+jobs:
+  claude-review:
+    if: |
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@claude'))
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Code Review
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+          # CUSTOMIZE THIS PROMPT FOR YOUR TECH STACK:
+          direct_prompt: |
+            Please review this pull request focusing on:
+            - Python/FastAPI best practices and security
+            - Database migration safety and Alembic best practices  
+            - React component patterns, performance, and accessibility
+            - API endpoint security and proper HTTP status codes
+            - Docker configuration and deployment considerations
+            - Test coverage and quality
+            - Code organization and maintainability
+
+            Be constructive and helpful, focusing on production readiness and security.
