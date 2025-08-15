@@ -3,7 +3,7 @@
 
 # Security Guidelines
 
-## = Core Security Principles
+## =� Core Security Principles
 
 Security is a top priority in all development work. These guidelines must be followed across all projects.
 
@@ -33,27 +33,6 @@ ANTHROPIC_API_KEY="sk-ant-api03-..."
 DATABASE_URL="postgresql://user:pass@localhost:5432/dbname"
 API_SECRET_KEY="your-secret-key-here"
 ANTHROPIC_API_KEY="sk-ant-api03-..."
-```
-
-## Application Configuration and Secrets
-
-### `settings.json`
-
-Our applications use a `settings.json` file to configure connections to various services. This file may contain sensitive information, such as API tokens.
-
-**Workflow:**
-
-1.  **Template:** A `settings-template.json` file is provided in the repository. This file serves as a template and should not contain any secrets.
-2.  **Local Configuration:** Each developer should create a local `settings.json` file by copying the `settings-template.json` file.
-3.  **`.gitignore`:** The `settings.json` file **must** be added to the `.gitignore` file to prevent it from being committed to the repository.
-
-**Example:**
-
-```
-# .gitignore
-
-# Ignore local settings
-settings.json
 ```
 
 ## Input Validation and Sanitization
