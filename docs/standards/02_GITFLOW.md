@@ -3,9 +3,15 @@
 
 # GitFlow Workflow Standard
 
+## 🌟 The Golden Rule 🌟
+
+**All work, without exception, must be done on a feature, bugfix, or hotfix branch. Never commit directly to `develop` or `main`.**
+
+This is the most important rule of our Git workflow. It ensures that all changes are reviewed and tested before being integrated, which is essential for maintaining the stability and quality of our codebase.
+
 ## <3 CRITICAL: Git Branching Strategy
 
-**� MANDATORY FOR ALL CONTRIBUTORS �**
+** MANDATORY FOR ALL CONTRIBUTORS **
 
 This is the standard GitFlow branching strategy that must be followed across all projects.
 
